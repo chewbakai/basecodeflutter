@@ -2,6 +2,7 @@ import 'package:basecode/screens/DashboardScreen.dart';
 import 'package:basecode/screens/ForgotPasswordScreen.dart';
 import 'package:basecode/screens/RegistrationScreen.dart';
 import 'package:basecode/services/AuthService.dart';
+import 'package:basecode/services/LocalService.dart';
 import 'package:basecode/widgets/SecondaryButton.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -117,6 +118,9 @@ class LoginScreenState extends State<LoginScreen> {
         print("Invalid user credentials");
         return;
       }
+
+      LocalService.setName(user.user.displayName);
+      LocalService.setUid(user.user.uid);
 
       Get.offNamed(DashboardScreen.routeName);
     } catch (e) {

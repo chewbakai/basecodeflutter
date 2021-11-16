@@ -1,5 +1,6 @@
 import 'package:basecode/screens/LoginScreen.dart';
 import 'package:basecode/services/AuthService.dart';
+import 'package:basecode/services/LocalService.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,8 @@ class SettingsScreenState extends State<SettingsScreen> {
           child: ElevatedButton(
             onPressed: () async {
               await authService.logout();
+              LocalService.setName("");
+              LocalService.setUid("");
               Get.offAllNamed(LoginScreen.routeName);
             },
             child: Text("Logout"),
