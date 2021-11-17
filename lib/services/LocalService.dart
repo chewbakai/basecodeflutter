@@ -4,6 +4,7 @@ class LocalService {
   static SharedPreferences _preferences;
   static const String _usernameKey = "username";
   static const String _uidKey = "uid";
+  static const String _refreshTokenKey = "refreshToken";
 
   static Future initialize() async =>
       _preferences = await SharedPreferences.getInstance();
@@ -14,14 +15,18 @@ class LocalService {
   static Future setUid(String uid) async =>
       await _preferences.setString(_uidKey, uid);
 
+  static Future setRefreshToken(String refreshToken) async =>
+      await _preferences.setString(_refreshTokenKey, refreshToken);
+
   static String getName() => _preferences.getString(_usernameKey);
   static String getUid() => _preferences.getString(_uidKey);
+  static String getRefreshToken() => _preferences.getString(_refreshTokenKey);
 
   static bool isUserLoggedIn() {
     String username = getName() ?? "";
     String uid = getUid() ?? "";
 
-    if (username != "" && uid != "") {
+    if (username != "" && uid != "" && refreshToken() != "") {
       return true;
     }
     return false;
